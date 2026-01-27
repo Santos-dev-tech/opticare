@@ -21,12 +21,12 @@ export const Layout = ({ children }: LayoutProps) => {
   ];
 
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex h-screen bg-background md:flex-row flex-col">
       {/* Sidebar */}
       <div
         className={`${
           sidebarOpen ? "w-64" : "w-20"
-        } bg-sidebar border-r border-sidebar-border transition-all duration-300 flex flex-col`}
+        } bg-sidebar border-r border-sidebar-border transition-all duration-300 flex flex-col hidden md:flex`}
       >
         {/* Logo */}
         <div className="h-16 border-b border-sidebar-border flex items-center justify-between px-4">
@@ -81,21 +81,21 @@ export const Layout = ({ children }: LayoutProps) => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Bar */}
-        <div className="h-16 border-b border-border bg-background px-8 flex items-center justify-between">
+        <div className="h-16 border-b border-border bg-background px-4 md:px-8 flex items-center justify-between">
           <div>
-            <p className="text-sm text-muted-foreground">Welcome back</p>
-            <h2 className="text-lg font-semibold text-foreground">Practice Management</h2>
+            <p className="text-sm text-muted-foreground hidden md:block">Welcome back</p>
+            <h2 className="text-base md:text-lg font-semibold text-foreground">Practice Management</h2>
           </div>
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-              <span className="text-sm font-semibold text-primary">DR</span>
+              <span className="text-xs md:text-sm font-semibold text-primary">DR</span>
             </div>
           </div>
         </div>
 
         {/* Content */}
         <div className="flex-1 overflow-auto">
-          <div className="p-8">{children}</div>
+          <div className="p-4 md:p-8">{children}</div>
         </div>
       </div>
     </div>
