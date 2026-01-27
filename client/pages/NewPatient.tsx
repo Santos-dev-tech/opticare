@@ -36,15 +36,18 @@ export default function NewPatient() {
               </svg>
             </div>
           </div>
-          <h2 className="text-2xl font-bold text-foreground mb-2">Add New Patient</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">
+            Add New Patient
+          </h2>
           <p className="text-muted-foreground">
-            This page will include a comprehensive form to add new patient records with personal
-            information, contact details, and initial vision prescription data.
+            This page will include a comprehensive form to add new patient
+            records with personal information, contact details, and initial
+            vision prescription data.
           </p>
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-900">
-              💡 Tell us what specific fields you'd like in the patient form and we'll build it
-              out for you!
+              💡 Tell us what specific fields you'd like in the patient form and
+              we'll build it out for you!
             </p>
           </div>
         </div>

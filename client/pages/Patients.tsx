@@ -36,14 +36,17 @@ export default function Patients() {
               </svg>
             </div>
           </div>
-          <h2 className="text-2xl font-bold text-foreground mb-2">All Patients</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">
+            All Patients
+          </h2>
           <p className="text-muted-foreground">
-            This page will provide a comprehensive view of all your patients with advanced
-            filtering, sorting, and bulk management options.
+            This page will provide a comprehensive view of all your patients
+            with advanced filtering, sorting, and bulk management options.
           </p>
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-900">
-              💡 Go back to the Dashboard to see all patients or create a new patient record!
+              💡 Go back to the Dashboard to see all patients or create a new
+              patient record!
             </p>
           </div>
         </div>

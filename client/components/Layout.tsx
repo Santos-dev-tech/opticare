@@ -1,5 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
-import { Eye, Users, Plus, Calendar, BarChart3, Settings, Menu, X } from "lucide-react";
+import {
+  Eye,
+  Users,
+  Plus,
+  Calendar,
+  BarChart3,
+  Settings,
+  Menu,
+  X,
+} from "lucide-react";
 import { useState } from "react";
 
 interface LayoutProps {
@@ -36,8 +45,12 @@ export const Layout = ({ children }: LayoutProps) => {
                 <Eye size={20} />
               </div>
               <div>
-                <h1 className="font-bold text-sm text-sidebar-foreground">OptiCare</h1>
-                <p className="text-xs text-sidebar-accent-foreground opacity-60">Pro</p>
+                <h1 className="font-bold text-sm text-sidebar-foreground">
+                  OptiCare
+                </h1>
+                <p className="text-xs text-sidebar-accent-foreground opacity-60">
+                  Pro
+                </p>
               </div>
             </div>
           )}
@@ -62,7 +75,9 @@ export const Layout = ({ children }: LayoutProps) => {
               }`}
             >
               <Icon size={20} />
-              {sidebarOpen && <span className="text-sm font-medium">{label}</span>}
+              {sidebarOpen && (
+                <span className="text-sm font-medium">{label}</span>
+              )}
             </Link>
           ))}
         </nav>
@@ -73,7 +88,9 @@ export const Layout = ({ children }: LayoutProps) => {
             className={`flex items-center gap-3 px-3 py-2.5 w-full rounded-lg text-sidebar-foreground hover:bg-sidebar-accent transition-colors`}
           >
             <Settings size={20} />
-            {sidebarOpen && <span className="text-sm font-medium">Settings</span>}
+            {sidebarOpen && (
+              <span className="text-sm font-medium">Settings</span>
+            )}
           </button>
         </div>
       </div>
@@ -83,12 +100,18 @@ export const Layout = ({ children }: LayoutProps) => {
         {/* Top Bar */}
         <div className="h-16 border-b border-border bg-background px-4 md:px-8 flex items-center justify-between">
           <div>
-            <p className="text-sm text-muted-foreground hidden md:block">Welcome back</p>
-            <h2 className="text-base md:text-lg font-semibold text-foreground">Practice Management</h2>
+            <p className="text-sm text-muted-foreground hidden md:block">
+              Welcome back
+            </p>
+            <h2 className="text-base md:text-lg font-semibold text-foreground">
+              Practice Management
+            </h2>
           </div>
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-              <span className="text-xs md:text-sm font-semibold text-primary">DR</span>
+              <span className="text-xs md:text-sm font-semibold text-primary">
+                DR
+              </span>
             </div>
           </div>
         </div>

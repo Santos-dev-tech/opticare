@@ -64,13 +64,15 @@ const MOCK_PATIENTS = [
 
 export default function Index() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedPatientId, setSelectedPatientId] = useState<number | null>(null);
+  const [selectedPatientId, setSelectedPatientId] = useState<number | null>(
+    null,
+  );
 
   const filteredPatients = MOCK_PATIENTS.filter(
     (patient) =>
       patient.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       patient.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      patient.phone.includes(searchTerm)
+      patient.phone.includes(searchTerm),
   );
 
   const selectedPatient = MOCK_PATIENTS.find((p) => p.id === selectedPatientId);
@@ -81,7 +83,9 @@ export default function Index() {
         {/* Header */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-foreground">Patient Management</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground">
+              Patient Management
+            </h1>
             <p className="text-sm md:text-base text-muted-foreground mt-1">
               Manage and track patient records and appointments
             </p>
@@ -116,9 +120,13 @@ export default function Index() {
               <div>
                 <p className="text-sm text-muted-foreground">This Week</p>
                 <p className="text-3xl font-bold text-foreground mt-2">
-                  {MOCK_PATIENTS.filter((p) =>
-                    new Date(p.lastVisit) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
-                  ).length}
+                  {
+                    MOCK_PATIENTS.filter(
+                      (p) =>
+                        new Date(p.lastVisit) >
+                        new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+                    ).length
+                  }
                 </p>
               </div>
               <div className="bg-secondary/10 p-3 rounded-lg">
@@ -130,7 +138,9 @@ export default function Index() {
           <div className="bg-card border border-border rounded-xl p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Next Appointment</p>
+                <p className="text-sm text-muted-foreground">
+                  Next Appointment
+                </p>
                 <p className="text-lg font-bold text-foreground mt-2">Today</p>
               </div>
               <div className="bg-accent/10 p-3 rounded-lg">
@@ -144,7 +154,10 @@ export default function Index() {
               <div>
                 <p className="text-sm text-muted-foreground">Pending Reviews</p>
                 <p className="text-3xl font-bold text-foreground mt-2">
-                  {MOCK_PATIENTS.filter((p) => p.status === "Pending Review").length}
+                  {
+                    MOCK_PATIENTS.filter((p) => p.status === "Pending Review")
+                      .length
+                  }
                 </p>
               </div>
               <div className="bg-yellow-100 p-3 rounded-lg">
@@ -159,11 +172,16 @@ export default function Index() {
           {/* Patient List */}
           <div className="lg:col-span-2 space-y-4">
             <div>
-              <h2 className="text-xl font-semibold text-foreground mb-4">Patient Records</h2>
+              <h2 className="text-xl font-semibold text-foreground mb-4">
+                Patient Records
+              </h2>
 
               {/* Search */}
               <div className="relative mb-4">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
+                <Search
+                  className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
+                  size={18}
+                />
                 <input
                   type="text"
                   placeholder="Search by name, email or phone..."
@@ -187,9 +205,15 @@ export default function Index() {
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="font-semibold text-foreground">{patient.name}</h3>
-                        <p className="text-sm text-muted-foreground mt-1">{patient.phone}</p>
-                        <p className="text-sm text-muted-foreground">{patient.prescription}</p>
+                        <h3 className="font-semibold text-foreground">
+                          {patient.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          {patient.phone}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {patient.prescription}
+                        </p>
                       </div>
                       <span
                         className={`text-xs font-medium px-2.5 py-1 rounded-full ${
@@ -212,15 +236,21 @@ export default function Index() {
             {selectedPatient ? (
               <div className="bg-card border border-border rounded-xl p-6 space-y-6 h-fit sticky top-8">
                 <div>
-                  <h3 className="text-lg font-bold text-foreground mb-4">Patient Details</h3>
+                  <h3 className="text-lg font-bold text-foreground mb-4">
+                    Patient Details
+                  </h3>
                   <div className="space-y-3">
                     <div>
                       <p className="text-sm text-muted-foreground">Name</p>
-                      <p className="font-semibold text-foreground">{selectedPatient.name}</p>
+                      <p className="font-semibold text-foreground">
+                        {selectedPatient.name}
+                      </p>
                     </div>
                     <div>
                       <p className="text-sm text-muted-foreground">Age</p>
-                      <p className="font-semibold text-foreground">{selectedPatient.age}</p>
+                      <p className="font-semibold text-foreground">
+                        {selectedPatient.age}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -248,7 +278,9 @@ export default function Index() {
 
                 <div className="border-t border-border pt-4 space-y-3">
                   <div>
-                    <p className="text-sm text-muted-foreground">Current Prescription</p>
+                    <p className="text-sm text-muted-foreground">
+                      Current Prescription
+                    </p>
                     <p className="font-mono text-sm font-semibold text-foreground mt-1">
                       {selectedPatient.prescription}
                     </p>
@@ -260,9 +292,13 @@ export default function Index() {
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Next Appointment</p>
+                    <p className="text-sm text-muted-foreground">
+                      Next Appointment
+                    </p>
                     <p className="text-sm font-semibold text-foreground mt-1">
-                      {new Date(selectedPatient.nextAppointment).toLocaleDateString()}
+                      {new Date(
+                        selectedPatient.nextAppointment,
+                      ).toLocaleDateString()}
                     </p>
                   </div>
                 </div>

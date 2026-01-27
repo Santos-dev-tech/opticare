@@ -18,10 +18,12 @@ const NotFound = () => {
       <div className="text-center py-16">
         <h1 className="text-6xl font-bold text-foreground mb-4">404</h1>
         <p className="text-xl text-muted-foreground mb-8">
-          Page not found: <span className="font-mono text-primary">{location.pathname}</span>
+          Page not found:{" "}
+          <span className="font-mono text-primary">{location.pathname}</span>
         </p>
         <p className="text-muted-foreground mb-8">
-          This page doesn't exist yet. Let us know what features you'd like us to build!
+          This page doesn't exist yet. Let us know what features you'd like us
+          to build!
         </p>
         <Link
           to="/"

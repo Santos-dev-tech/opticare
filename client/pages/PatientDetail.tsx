@@ -1,6 +1,14 @@
 import { Layout } from "@/components/Layout";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { ArrowLeft, Edit, Phone, Mail, Calendar, Eye, FileText } from "lucide-react";
+import {
+  ArrowLeft,
+  Edit,
+  Phone,
+  Mail,
+  Calendar,
+  Eye,
+  FileText,
+} from "lucide-react";
 
 // Mock data - same as in Index
 const MOCK_PATIENTS = [
@@ -91,7 +99,10 @@ export default function PatientDetail() {
       <Layout>
         <div className="text-center py-12">
           <p className="text-muted-foreground">Patient not found</p>
-          <Link to="/" className="text-primary hover:underline mt-4 inline-block">
+          <Link
+            to="/"
+            className="text-primary hover:underline mt-4 inline-block"
+          >
             Back to Dashboard
           </Link>
         </div>
@@ -121,8 +132,12 @@ export default function PatientDetail() {
         <div className="bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 rounded-xl p-8">
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="text-4xl font-bold text-foreground">{patient.name}</h1>
-              <p className="text-muted-foreground mt-2">Age: {patient.age} years old</p>
+              <h1 className="text-4xl font-bold text-foreground">
+                {patient.name}
+              </h1>
+              <p className="text-muted-foreground mt-2">
+                Age: {patient.age} years old
+              </p>
               <div className="mt-4 flex gap-4">
                 <a
                   href={`tel:${patient.phone}`}
@@ -165,19 +180,29 @@ export default function PatientDetail() {
               <div className="grid grid-cols-2 gap-6">
                 <div>
                   <p className="text-sm text-muted-foreground">Date of Birth</p>
-                  <p className="text-foreground font-medium mt-1">{patient.dob}</p>
+                  <p className="text-foreground font-medium mt-1">
+                    {patient.dob}
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Age</p>
-                  <p className="text-foreground font-medium mt-1">{patient.age} years</p>
+                  <p className="text-foreground font-medium mt-1">
+                    {patient.age} years
+                  </p>
                 </div>
                 <div className="col-span-2">
                   <p className="text-sm text-muted-foreground">Address</p>
-                  <p className="text-foreground font-medium mt-1">{patient.address}</p>
+                  <p className="text-foreground font-medium mt-1">
+                    {patient.address}
+                  </p>
                 </div>
                 <div className="col-span-2">
-                  <p className="text-sm text-muted-foreground">Insurance Provider</p>
-                  <p className="text-foreground font-medium mt-1">{patient.insurance}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Insurance Provider
+                  </p>
+                  <p className="text-foreground font-medium mt-1">
+                    {patient.insurance}
+                  </p>
                 </div>
               </div>
             </div>
@@ -209,13 +234,16 @@ export default function PatientDetail() {
                 </div>
               </div>
               <p className="text-sm text-muted-foreground mt-4">
-                Last prescribed: {new Date(patient.lastVisit).toLocaleDateString()}
+                Last prescribed:{" "}
+                {new Date(patient.lastVisit).toLocaleDateString()}
               </p>
             </div>
 
             {/* Clinical Notes */}
             <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="text-lg font-semibold text-foreground mb-4">Clinical Notes</h2>
+              <h2 className="text-lg font-semibold text-foreground mb-4">
+                Clinical Notes
+              </h2>
               <p className="text-foreground leading-relaxed">{patient.notes}</p>
             </div>
           </div>
@@ -231,18 +259,24 @@ export default function PatientDetail() {
                 <Calendar size={24} className="text-secondary" />
                 <div>
                   <p className="text-2xl font-bold text-foreground">
-                    {new Date(patient.nextAppointment).toLocaleDateString("en-US", {
-                      weekday: "short",
-                      month: "short",
-                      day: "numeric",
-                    })}
+                    {new Date(patient.nextAppointment).toLocaleDateString(
+                      "en-US",
+                      {
+                        weekday: "short",
+                        month: "short",
+                        day: "numeric",
+                      },
+                    )}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {new Date(patient.nextAppointment).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    {new Date(patient.nextAppointment).toLocaleDateString(
+                      "en-US",
+                      {
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      },
+                    )}
                   </p>
                 </div>
               </div>
@@ -260,14 +294,19 @@ export default function PatientDetail() {
                 {new Date(patient.lastVisit).toLocaleDateString()}
               </p>
               <p className="text-sm text-muted-foreground mt-2">
-                {Math.floor((Date.now() - new Date(patient.lastVisit).getTime()) / (1000 * 60 * 60 * 24))}{" "}
+                {Math.floor(
+                  (Date.now() - new Date(patient.lastVisit).getTime()) /
+                    (1000 * 60 * 60 * 24),
+                )}{" "}
                 days ago
               </p>
             </div>
 
             {/* Quick Actions */}
             <div className="bg-card border border-border rounded-xl p-6 space-y-2">
-              <h3 className="text-sm font-semibold text-foreground mb-4">Quick Actions</h3>
+              <h3 className="text-sm font-semibold text-foreground mb-4">
+                Quick Actions
+              </h3>
               <button className="w-full text-left px-4 py-2.5 rounded-lg bg-primary/5 text-primary hover:bg-primary/10 transition-colors text-sm font-medium">
                 Schedule Appointment
               </button>

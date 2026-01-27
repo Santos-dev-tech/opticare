@@ -36,15 +36,17 @@ export default function Reports() {
               </svg>
             </div>
           </div>
-          <h2 className="text-2xl font-bold text-foreground mb-2">Reports & Analytics</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">
+            Reports & Analytics
+          </h2>
           <p className="text-muted-foreground">
-            Generate detailed reports on patient statistics, prescription trends, appointment
-            analytics, and business metrics.
+            Generate detailed reports on patient statistics, prescription
+            trends, appointment analytics, and business metrics.
           </p>
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-900">
-              💡 What kind of reports would be most useful for your practice? Let us know and
-              we'll build them!
+              💡 What kind of reports would be most useful for your practice?
+              Let us know and we'll build them!
             </p>
           </div>
         </div>

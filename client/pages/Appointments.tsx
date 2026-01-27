@@ -36,14 +36,17 @@ export default function Appointments() {
               </svg>
             </div>
           </div>
-          <h2 className="text-2xl font-bold text-foreground mb-2">Appointments</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">
+            Appointments
+          </h2>
           <p className="text-muted-foreground">
-            View and manage all patient appointments with calendar integration, reminders, and
-            scheduling features.
+            View and manage all patient appointments with calendar integration,
+            reminders, and scheduling features.
           </p>
           <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <p className="text-sm text-blue-900">
-              💡 Let us know what appointment features you need and we'll build them out!
+              💡 Let us know what appointment features you need and we'll build
+              them out!
             </p>
           </div>
         </div>
