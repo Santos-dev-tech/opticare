@@ -79,16 +79,16 @@ export default function Index() {
     <Layout>
       <div className="space-y-8">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Patient Management</h1>
-            <p className="text-muted-foreground mt-1">
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground">Patient Management</h1>
+            <p className="text-sm md:text-base text-muted-foreground mt-1">
               Manage and track patient records and appointments
             </p>
           </div>
           <Link
             to="/new-patient"
-            className="flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-lg hover:bg-primary/90 transition-colors font-medium"
+            className="flex items-center gap-2 bg-primary text-primary-foreground px-4 md:px-6 py-2.5 rounded-lg hover:bg-primary/90 transition-colors font-medium text-sm md:text-base whitespace-nowrap"
           >
             <Plus size={20} />
             Add Patient
