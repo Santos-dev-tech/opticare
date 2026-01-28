@@ -40,7 +40,8 @@ export default function Appointments() {
 
   // Load appointments and patients
   useEffect(() => {
-    loadData();
+    // Initial load without showing loading spinner
+    loadData(false);
   }, []);
 
   const loadData = async (showLoading = false) => {
