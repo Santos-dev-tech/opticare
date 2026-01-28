@@ -1,6 +1,14 @@
 import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
-import { Phone, Mail, Eye, Calendar, Plus, Search, AlertCircle } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  Eye,
+  Calendar,
+  Plus,
+  Search,
+  AlertCircle,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import { getAllPatients, PatientData } from "@/services/patientService";
 
@@ -9,7 +17,9 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedPatientId, setSelectedPatientId] = useState<string | null>(null);
+  const [selectedPatientId, setSelectedPatientId] = useState<string | null>(
+    null,
+  );
 
   // Fetch patients from Firebase on component mount
   useEffect(() => {
@@ -37,7 +47,7 @@ export default function Index() {
       patient.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       patient.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       patient.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      patient.phone.includes(searchTerm)
+      patient.phone.includes(searchTerm),
   );
 
   const selectedPatient = patients.find((p) => p.id === selectedPatientId);
@@ -79,11 +89,13 @@ export default function Index() {
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
             <AlertCircle className="text-red-600 mt-0.5" size={20} />
             <div>
-              <h3 className="font-semibold text-red-900">Error Loading Patients</h3>
+              <h3 className="font-semibold text-red-900">
+                Error Loading Patients
+              </h3>
               <p className="text-sm text-red-800">{error}</p>
               <p className="text-xs text-red-700 mt-2">
-                Make sure your Firebase configuration is set up correctly in environment
-                variables.
+                Make sure your Firebase configuration is set up correctly in
+                environment variables.
               </p>
             </div>
           </div>
@@ -95,7 +107,9 @@ export default function Index() {
             <div className="bg-card border border-border rounded-xl p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Patients</p>
+                  <p className="text-sm text-muted-foreground">
+                    Total Patients
+                  </p>
                   <p className="text-3xl font-bold text-foreground mt-2">
                     {patients.length}
                   </p>
@@ -121,8 +135,12 @@ export default function Index() {
             <div className="bg-card border border-border rounded-xl p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Next Appointment</p>
-                  <p className="text-lg font-bold text-foreground mt-2">Today</p>
+                  <p className="text-sm text-muted-foreground">
+                    Next Appointment
+                  </p>
+                  <p className="text-lg font-bold text-foreground mt-2">
+                    Today
+                  </p>
                 </div>
                 <div className="bg-accent/10 p-3 rounded-lg">
                   <Eye size={24} className="text-accent" />
@@ -133,7 +151,9 @@ export default function Index() {
             <div className="bg-card border border-border rounded-xl p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Active Patients</p>
+                  <p className="text-sm text-muted-foreground">
+                    Active Patients
+                  </p>
                   <p className="text-3xl font-bold text-foreground mt-2">
                     {patients.length}
                   </p>
@@ -159,7 +179,10 @@ export default function Index() {
         {/* Empty State */}
         {!loading && patients.length === 0 && !error && (
           <div className="text-center py-12 bg-card border border-border rounded-lg">
-            <Eye size={48} className="mx-auto mb-4 text-muted-foreground opacity-50" />
+            <Eye
+              size={48}
+              className="mx-auto mb-4 text-muted-foreground opacity-50"
+            />
             <h3 className="text-lg font-semibold text-foreground mb-2">
               No Patients Yet
             </h3>

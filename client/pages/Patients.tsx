@@ -35,7 +35,7 @@ export default function Patients() {
       patient.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       patient.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       patient.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      patient.phone.includes(searchTerm)
+      patient.phone.includes(searchTerm),
   );
 
   return (
@@ -53,7 +53,9 @@ export default function Patients() {
         </div>
 
         <div>
-          <h1 className="text-3xl font-bold text-foreground mb-2">All Patients</h1>
+          <h1 className="text-3xl font-bold text-foreground mb-2">
+            All Patients
+          </h1>
           <p className="text-muted-foreground">
             Manage all patient records in your system
           </p>
@@ -78,7 +80,10 @@ export default function Patients() {
           <div className="space-y-4">
             {/* Search */}
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
+              <Search
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
+                size={18}
+              />
               <input
                 type="text"
                 placeholder="Search by name, email or phone..."

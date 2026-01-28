@@ -70,7 +70,7 @@ export default function NewPatient() {
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -152,8 +152,8 @@ export default function NewPatient() {
             <div>
               <h3 className="font-semibold text-green-900">Success!</h3>
               <p className="text-sm text-green-800">
-                {formData.firstName} {formData.lastName} has been added. Redirecting to
-                dashboard...
+                {formData.firstName} {formData.lastName} has been added.
+                Redirecting to dashboard...
               </p>
             </div>
           </div>

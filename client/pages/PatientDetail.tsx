@@ -81,7 +81,9 @@ export default function PatientDetail() {
               <h2 className="text-lg font-semibold text-red-900 mb-2">
                 Error Loading Patient
               </h2>
-              <p className="text-sm text-red-800 mb-4">{error || "Patient not found"}</p>
+              <p className="text-sm text-red-800 mb-4">
+                {error || "Patient not found"}
+              </p>
               <Link
                 to="/"
                 className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
@@ -121,7 +123,9 @@ export default function PatientDetail() {
               <h1 className="text-4xl font-bold text-foreground">
                 {patient.firstName} {patient.lastName}
               </h1>
-              <p className="text-muted-foreground mt-2">Age: {patient.age} years old</p>
+              <p className="text-muted-foreground mt-2">
+                Age: {patient.age} years old
+              </p>
               <div className="mt-4 flex gap-4">
                 <a
                   href={`tel:${patient.phone}`}
@@ -164,15 +168,23 @@ export default function PatientDetail() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Age</p>
-                  <p className="text-foreground font-medium mt-1">{patient.age} years</p>
+                  <p className="text-foreground font-medium mt-1">
+                    {patient.age} years
+                  </p>
                 </div>
                 <div className="col-span-2">
                   <p className="text-sm text-muted-foreground">Address</p>
-                  <p className="text-foreground font-medium mt-1">{patient.address}</p>
+                  <p className="text-foreground font-medium mt-1">
+                    {patient.address}
+                  </p>
                 </div>
                 <div className="col-span-2">
-                  <p className="text-sm text-muted-foreground">Insurance Provider</p>
-                  <p className="text-foreground font-medium mt-1">{patient.insurance}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Insurance Provider
+                  </p>
+                  <p className="text-foreground font-medium mt-1">
+                    {patient.insurance}
+                  </p>
                 </div>
               </div>
             </div>

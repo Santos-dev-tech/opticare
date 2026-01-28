@@ -64,13 +64,14 @@ export async function addPatient(patientData: PatientData): Promise<string> {
  */
 export async function getAllPatients(): Promise<PatientData[]> {
   try {
-    const querySnapshot = await getDocs(
-      collection(db, PATIENTS_COLLECTION)
+    const querySnapshot = await getDocs(collection(db, PATIENTS_COLLECTION));
+    return querySnapshot.docs.map(
+      (doc) =>
+        ({
+          id: doc.id,
+          ...doc.data(),
+        }) as PatientData,
     );
-    return querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    } as PatientData));
   } catch (error) {
     console.error("Error getting patients:", error);
     throw error;
@@ -80,7 +81,9 @@ export async function getAllPatients(): Promise<PatientData[]> {
 /**
  * Get a single patient by ID
  */
-export async function getPatientById(patientId: string): Promise<PatientData | null> {
+export async function getPatientById(
+  patientId: string,
+): Promise<PatientData | null> {
   try {
     const docRef = doc(db, PATIENTS_COLLECTION, patientId);
     const docSnap = await getDoc(docRef);
@@ -102,24 +105,27 @@ export async function getPatientById(patientId: string): Promise<PatientData | n
 /**
  * Search patients by name or email
  */
-export async function searchPatients(searchTerm: string): Promise<PatientData[]> {
+export async function searchPatients(
+  searchTerm: string,
+): Promise<PatientData[]> {
   try {
     const lowerSearchTerm = searchTerm.toLowerCase();
-    const querySnapshot = await getDocs(
-      collection(db, PATIENTS_COLLECTION)
-    );
-    
+    const querySnapshot = await getDocs(collection(db, PATIENTS_COLLECTION));
+
     return querySnapshot.docs
-      .map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      } as PatientData))
+      .map(
+        (doc) =>
+          ({
+            id: doc.id,
+            ...doc.data(),
+          }) as PatientData,
+      )
       .filter(
         (patient) =>
           patient.firstName.toLowerCase().includes(lowerSearchTerm) ||
           patient.lastName.toLowerCase().includes(lowerSearchTerm) ||
           patient.email.toLowerCase().includes(lowerSearchTerm) ||
-          patient.phone.includes(searchTerm)
+          patient.phone.includes(searchTerm),
       );
   } catch (error) {
     console.error("Error searching patients:", error);
@@ -132,7 +138,7 @@ export async function searchPatients(searchTerm: string): Promise<PatientData[]>
  */
 export async function updatePatient(
   patientId: string,
-  patientData: Partial<PatientData>
+  patientData: Partial<PatientData>,
 ): Promise<void> {
   try {
     const docRef = doc(db, PATIENTS_COLLECTION, patientId);
