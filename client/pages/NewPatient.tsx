@@ -363,6 +363,100 @@ export default function NewPatient() {
             </div>
           </div>
 
+          {/* Patient History Section */}
+          <div className="bg-card border border-border rounded-xl p-6 space-y-6">
+            <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+              <div className="bg-blue-500/10 p-2 rounded-lg">
+                <svg
+                  className="w-5 h-5 text-blue-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                  />
+                </svg>
+              </div>
+              Patient History
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  PM Hx (Past Medical History)
+                </label>
+                <textarea
+                  name="pmHx"
+                  value={formData.pmHx}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background"
+                  placeholder="e.g., Diabetes, Hypertension..."
+                  rows={3}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  PO Hx (Past Ocular History)
+                </label>
+                <textarea
+                  name="poHx"
+                  value={formData.poHx}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background"
+                  placeholder="e.g., Previous surgeries, contact lens use..."
+                  rows={3}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  VDU (Visual Display Unit Usage)
+                </label>
+                <textarea
+                  name="vdu"
+                  value={formData.vdu}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background"
+                  placeholder="e.g., Hours per day, computer work..."
+                  rows={3}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Strabismus
+                </label>
+                <textarea
+                  name="strabismus"
+                  value={formData.strabismus}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background"
+                  placeholder="e.g., None, Esotropia, Exotropia..."
+                  rows={3}
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  NPC (Near Point of Convergence)
+                </label>
+                <textarea
+                  name="npc"
+                  value={formData.npc}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background"
+                  placeholder="e.g., 5 cm, 8 cm, unable to accommodate..."
+                  rows={3}
+                />
+              </div>
+            </div>
+          </div>
+
           {/* Eye Measurements Section */}
           <div className="bg-card border border-border rounded-xl p-6 space-y-6">
             <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
