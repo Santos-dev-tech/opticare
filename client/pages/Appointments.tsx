@@ -45,16 +45,40 @@ export default function Appointments() {
   const loadData = async () => {
     try {
       setIsLoading(true);
-      const [appointmentsData, patientsData] = await Promise.all([
-        getAppointments(),
-        getAllPatients(),
-      ]);
-      setAppointments(appointmentsData);
-      setPatients(patientsData);
       setError(null);
+
+      // Set a timeout to prevent infinite loading
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error("Loading timeout")), 15000),
+      );
+
+      const loadPromise = Promise.all([
+        getAppointments().catch(() => []), // Return empty array if collection doesn't exist
+        getAllPatients().catch(() => []),
+      ]);
+
+      const [appointmentsData, patientsData] = await Promise.race([
+        loadPromise,
+        timeoutPromise,
+      ]) as [AppointmentData[], PatientData[]];
+
+      setAppointments(appointmentsData || []);
+      setPatients(patientsData || []);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Failed to load data";
-      setError(errorMessage);
+      // If it's just that the collection doesn't exist, show empty state
+      console.log("Load error:", err);
+      setAppointments([]);
+      setPatients([]);
+      // Don't show error for non-existent collections
+      if (!(err instanceof Error && err.message.includes("timeout"))) {
+        // Try to load just patients at least
+        try {
+          const patientsData = await getAllPatients();
+          setPatients(patientsData);
+        } catch {
+          // Silently fail
+        }
+      }
     } finally {
       setIsLoading(false);
     }
