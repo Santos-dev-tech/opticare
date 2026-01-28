@@ -77,6 +77,8 @@ export default function NewPatient() {
     leftAdd: "",
     leftPD: "",
     notes: "",
+    frameType: "",
+    lensType: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
