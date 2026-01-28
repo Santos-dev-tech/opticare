@@ -57,10 +57,42 @@ export default function Reports() {
   }, []);
 
   const loadReportData = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
+    setIsLoading(true);
+    setError(null);
 
+    // Set a timeout to prevent infinite loading
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+      setPatientStats({
+        totalPatients: 0,
+        newPatientsThisMonth: 0,
+        newPatientsLastMonth: 0,
+        malePatients: 0,
+        femalePatients: 0,
+        otherPatients: 0,
+        averageAge: 0,
+      });
+      setAppointmentStats({
+        totalAppointments: 0,
+        completedAppointments: 0,
+        scheduledAppointments: 0,
+        cancelledAppointments: 0,
+        noShowAppointments: 0,
+        completionRate: 0,
+        cancellationRate: 0,
+        noShowRate: 0,
+      });
+      setPrescriptionStats({
+        totalPrescriptions: 0,
+        singleVision: 0,
+        bifocal: 0,
+        progressive: 0,
+        mostCommonFrameType: "N/A",
+        mostCommonLensType: "N/A",
+      });
+    }, 8000);
+
+    try {
       let patients: PatientData[] = [];
       let appointments: AppointmentData[] = [];
 
@@ -77,6 +109,8 @@ export default function Reports() {
         console.error("Error loading appointments:", err);
         appointments = [];
       }
+
+      clearTimeout(timeoutId);
 
       // Calculate patient statistics
       const now = new Date();
