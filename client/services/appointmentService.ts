@@ -202,21 +202,29 @@ export async function getUpcomingAppointments(): Promise<AppointmentData[]> {
 
     const q = query(
       collection(db, APPOINTMENTS_COLLECTION),
-      where("appointmentDate", ">=", todayStr),
-      where("appointmentDate", "<=", nextWeekStr),
       where("status", "==", "scheduled"),
-      orderBy("appointmentDate", "asc"),
-      orderBy("appointmentTime", "asc"),
     );
 
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(
-      (doc) =>
-        ({
-          id: doc.id,
-          ...doc.data(),
-        }) as AppointmentData,
-    );
+    const appointments = querySnapshot.docs
+      .map(
+        (doc) =>
+          ({
+            id: doc.id,
+            ...doc.data(),
+          }) as AppointmentData,
+      )
+      .filter(
+        (apt) =>
+          apt.appointmentDate >= todayStr && apt.appointmentDate <= nextWeekStr,
+      );
+
+    // Sort by date and time
+    return appointments.sort((a, b) => {
+      const dateCompare = a.appointmentDate.localeCompare(b.appointmentDate);
+      if (dateCompare !== 0) return dateCompare;
+      return a.appointmentTime.localeCompare(b.appointmentTime);
+    });
   } catch (error) {
     console.error("Error getting upcoming appointments:", error);
     throw error;
