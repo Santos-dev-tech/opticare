@@ -683,6 +683,64 @@ export default function NewPatient() {
             </div>
           </div>
 
+          {/* Eyewear Details Section */}
+          <div className="bg-card border border-border rounded-xl p-6 space-y-6">
+            <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+              <div className="bg-purple-500/10 p-2 rounded-lg">
+                <svg
+                  className="w-5 h-5 text-purple-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                  />
+                </svg>
+              </div>
+              Eyewear Details
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Frame Type
+                </label>
+                <input
+                  type="text"
+                  name="frameType"
+                  value={formData.frameType}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background"
+                  placeholder="e.g., Full Frame, Half Frame, Rimless..."
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Lens Type
+                </label>
+                <input
+                  type="text"
+                  name="lensType"
+                  value={formData.lensType}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-2.5 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-background"
+                  placeholder="e.g., Single Vision, Bifocal, Progressive..."
+                />
+              </div>
+            </div>
+          </div>
+
           {/* Form Actions */}
           <div className="flex gap-3 pt-6 border-t border-border">
             <Link
