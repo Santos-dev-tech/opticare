@@ -113,7 +113,7 @@ export default function Appointments() {
       }
 
       resetForm();
-      await loadData();
+      await loadData(true);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Failed to save appointment";
       setError(errorMessage);
