@@ -43,24 +43,23 @@ export default function Appointments() {
   }, []);
 
   const loadData = async () => {
-    setIsLoading(true);
-    setError(null);
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const appointmentsData = await getAppointments();
+      setAppointments(appointmentsData || []);
+    } catch (err) {
+      console.error("Error loading appointments:", err);
+      setAppointments([]);
+    }
 
     try {
-      console.log("Loading patients first...");
       const patientsData = await getAllPatients();
-      console.log("Loaded patients:", patientsData.length);
-      setPatients(patientsData);
-
-      console.log("Loading appointments...");
-      const appointmentsData = await getAppointments();
-      console.log("Loaded appointments:", appointmentsData.length);
-      setAppointments(appointmentsData);
+      setPatients(patientsData || []);
     } catch (err) {
-      console.error("Error loading data:", err);
-      // Set empty state on error
+      console.error("Error loading patients:", err);
       setPatients([]);
-      setAppointments([]);
     } finally {
       setIsLoading(false);
     }
