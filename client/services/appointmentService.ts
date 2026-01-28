@@ -63,22 +63,25 @@ export async function getAppointments(
       q = query(
         collection(db, APPOINTMENTS_COLLECTION),
         where("patientId", "==", patientId),
-        orderBy("appointmentDate", "desc"),
       );
     } else {
-      q = query(
-        collection(db, APPOINTMENTS_COLLECTION),
-        orderBy("appointmentDate", "desc"),
-      );
+      q = query(collection(db, APPOINTMENTS_COLLECTION));
     }
 
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(
+    const appointments = querySnapshot.docs.map(
       (doc) =>
         ({
           id: doc.id,
           ...doc.data(),
         }) as AppointmentData,
+    );
+
+    // Sort by date descending
+    return appointments.sort(
+      (a, b) =>
+        new Date(b.appointmentDate).getTime() -
+        new Date(a.appointmentDate).getTime(),
     );
   } catch (error) {
     console.error("Error getting appointments:", error);
