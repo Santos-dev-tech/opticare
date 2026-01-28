@@ -1,13 +1,48 @@
 import { Layout } from "@/components/Layout";
 import { Link } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Search } from "lucide-react";
+import { useState, useEffect } from "react";
+import { getAllPatients, PatientData } from "@/services/patientService";
 
 export default function Patients() {
+  const [patients, setPatients] = useState<PatientData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await getAllPatients();
+        setPatients(data);
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : "Failed to load patients";
+        setError(errorMessage);
+        console.error("Error fetching patients:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPatients();
+  }, []);
+
+  const filteredPatients = patients.filter(
+    (patient) =>
+      patient.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      patient.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      patient.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      patient.phone.includes(searchTerm)
+  );
+
   return (
     <Layout>
-      <div className="space-y-6 max-w-3xl">
+      <div className="space-y-6">
         {/* Header */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mb-6">
           <Link
             to="/"
             className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
@@ -17,39 +52,81 @@ export default function Patients() {
           </Link>
         </div>
 
-        {/* Content */}
-        <div className="bg-card border border-border rounded-xl p-8 text-center py-16">
-          <div className="mb-4">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary/10">
-              <svg
-                className="w-6 h-6 text-primary"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4.354a4 4 0 110 5.292M15 12H9m6 0a6 6 0 01-6 6H9m0-12h6a6 6 0 01-6 6m0 0H9m-3 6h12"
-                />
-              </svg>
+        <div>
+          <h1 className="text-3xl font-bold text-foreground mb-2">All Patients</h1>
+          <p className="text-muted-foreground">
+            Manage all patient records in your system
+          </p>
+        </div>
+
+        {loading && (
+          <div className="text-center py-12">
+            <div className="inline-flex items-center gap-2">
+              <div className="animate-spin rounded-full h-5 w-5 border-2 border-primary border-t-transparent"></div>
+              <p className="text-muted-foreground">Loading patients...</p>
             </div>
           </div>
-          <h2 className="text-2xl font-bold text-foreground mb-2">
-            All Patients
-          </h2>
-          <p className="text-muted-foreground">
-            This page will provide a comprehensive view of all your patients
-            with advanced filtering, sorting, and bulk management options.
-          </p>
-          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-900">
-              💡 Go back to the Dashboard to see all patients or create a new
-              patient record!
-            </p>
+        )}
+
+        {error && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <p className="text-red-800">{error}</p>
           </div>
-        </div>
+        )}
+
+        {!loading && !error && (
+          <div className="space-y-4">
+            {/* Search */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={18} />
+              <input
+                type="text"
+                placeholder="Search by name, email or phone..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
+
+            {/* Patient List */}
+            <div className="grid gap-3">
+              {filteredPatients.length > 0 ? (
+                filteredPatients.map((patient) => (
+                  <Link
+                    key={patient.id}
+                    to={`/patient/${patient.id}`}
+                    className="block p-4 bg-card border border-border rounded-lg hover:border-primary/50 hover:shadow-md transition-all"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="font-semibold text-foreground">
+                          {patient.firstName} {patient.lastName}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          {patient.email} • {patient.phone}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          Age: {patient.age} • {patient.sex}
+                        </p>
+                      </div>
+                      <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-green-100 text-green-800">
+                        Active
+                      </span>
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <div className="text-center py-12 bg-card border border-border rounded-lg">
+                  <p className="text-muted-foreground">
+                    {searchTerm
+                      ? `No patients found matching "${searchTerm}"`
+                      : "No patients found"}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </Layout>
   );
