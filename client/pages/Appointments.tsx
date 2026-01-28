@@ -43,11 +43,11 @@ export default function Appointments() {
     loadData();
   }, []);
 
-  const loadData = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
+  const loadData = async (showLoading = false) => {
+    if (showLoading) setIsLoading(true);
+    setError(null);
 
+    try {
       const appointmentsData = await getAppointments();
       setAppointments(appointmentsData || []);
     } catch (err) {
@@ -61,9 +61,10 @@ export default function Appointments() {
     } catch (err) {
       console.error("Error loading patients:", err);
       setPatients([]);
-    } finally {
-      setIsLoading(false);
     }
+
+    setDataLoaded(true);
+    if (showLoading) setIsLoading(false);
   };
 
   const handleInputChange = (
