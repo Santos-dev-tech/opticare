@@ -18,11 +18,12 @@ export default function Appointments() {
   const [patients, setPatients] = useState<PatientData[]>([]);
   const [showBookingForm, setShowBookingForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [dataLoaded, setDataLoaded] = useState(false);
 
   const [formData, setFormData] = useState<Partial<AppointmentData>>({
     patientId: "",
