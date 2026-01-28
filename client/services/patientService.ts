@@ -25,6 +25,11 @@ export interface PatientData {
   address: string;
   insurance: string;
   problem: string;
+  pmHx: string;
+  poHx: string;
+  vdu: string;
+  strabismus: string;
+  npc: string;
   rightSphere: string;
   rightCylinder: string;
   rightAxis: string;
@@ -36,6 +41,8 @@ export interface PatientData {
   leftAdd: string;
   leftPD: string;
   notes: string;
+  frameType: string;
+  lensType: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
