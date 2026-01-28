@@ -66,10 +66,13 @@ export async function getAppointments(
     }
 
     const querySnapshot = await getDocs(q);
-    const appointments = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    } as AppointmentData));
+    const appointments = querySnapshot.docs.map(
+      (doc) =>
+        ({
+          id: doc.id,
+          ...doc.data(),
+        }) as AppointmentData,
+    );
 
     // Sort by date descending
     return appointments.sort(
@@ -111,7 +114,9 @@ export async function getAppointmentById(
 /**
  * Get appointments for a specific date
  */
-export async function getAppointmentsByDate(date: string): Promise<AppointmentData[]> {
+export async function getAppointmentsByDate(
+  date: string,
+): Promise<AppointmentData[]> {
   try {
     const q = query(
       collection(db, APPOINTMENTS_COLLECTION),
@@ -128,8 +133,8 @@ export async function getAppointmentsByDate(date: string): Promise<AppointmentDa
     );
 
     // Sort by time ascending
-    return appointments.sort(
-      (a, b) => a.appointmentTime.localeCompare(b.appointmentTime),
+    return appointments.sort((a, b) =>
+      a.appointmentTime.localeCompare(b.appointmentTime),
     );
   } catch (error) {
     console.error("Error getting appointments by date:", error);

@@ -12,7 +12,10 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { getAllPatients, PatientData } from "@/services/patientService";
-import { getAppointments, AppointmentData } from "@/services/appointmentService";
+import {
+  getAppointments,
+  AppointmentData,
+} from "@/services/appointmentService";
 
 interface PatientStats {
   totalPatients: number;
@@ -48,8 +51,10 @@ export default function Reports() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [patientStats, setPatientStats] = useState<PatientStats | null>(null);
-  const [appointmentStats, setAppointmentStats] = useState<AppointmentStats | null>(null);
-  const [prescriptionStats, setPrescriptionStats] = useState<PrescriptionStats | null>(null);
+  const [appointmentStats, setAppointmentStats] =
+    useState<AppointmentStats | null>(null);
+  const [prescriptionStats, setPrescriptionStats] =
+    useState<PrescriptionStats | null>(null);
   const [selectedReport, setSelectedReport] = useState<string>("overview");
 
   useEffect(() => {
@@ -120,27 +125,38 @@ export default function Reports() {
       const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
 
       const newThisMonth = patients.filter((p) => {
-        const createdAt = p.createdAt instanceof Date ? p.createdAt : new Date(p.createdAt || "");
+        const createdAt =
+          p.createdAt instanceof Date
+            ? p.createdAt
+            : new Date(p.createdAt || "");
         return (
-          createdAt.getMonth() === currentMonth && createdAt.getFullYear() === currentYear
+          createdAt.getMonth() === currentMonth &&
+          createdAt.getFullYear() === currentYear
         );
       }).length;
 
       const newLastMonth = patients.filter((p) => {
-        const createdAt = p.createdAt instanceof Date ? p.createdAt : new Date(p.createdAt || "");
-        return createdAt.getMonth() === lastMonth && createdAt.getFullYear() === lastMonthYear;
+        const createdAt =
+          p.createdAt instanceof Date
+            ? p.createdAt
+            : new Date(p.createdAt || "");
+        return (
+          createdAt.getMonth() === lastMonth &&
+          createdAt.getFullYear() === lastMonthYear
+        );
       }).length;
 
       const maleCount = patients.filter((p) => p.sex === "male").length;
       const femaleCount = patients.filter((p) => p.sex === "female").length;
       const otherCount = patients.filter((p) => p.sex === "other").length;
 
-      const avgAge = patients.length > 0
-        ? Math.round(
-            patients.reduce((sum, p) => sum + parseInt(p.age || "0"), 0) /
-              patients.length,
-          )
-        : 0;
+      const avgAge =
+        patients.length > 0
+          ? Math.round(
+              patients.reduce((sum, p) => sum + parseInt(p.age || "0"), 0) /
+                patients.length,
+            )
+          : 0;
 
       setPatientStats({
         totalPatients: patients.length,
@@ -153,9 +169,15 @@ export default function Reports() {
       });
 
       // Calculate appointment statistics
-      const completed = appointments.filter((a) => a.status === "completed").length;
-      const scheduled = appointments.filter((a) => a.status === "scheduled").length;
-      const cancelled = appointments.filter((a) => a.status === "cancelled").length;
+      const completed = appointments.filter(
+        (a) => a.status === "completed",
+      ).length;
+      const scheduled = appointments.filter(
+        (a) => a.status === "scheduled",
+      ).length;
+      const cancelled = appointments.filter(
+        (a) => a.status === "cancelled",
+      ).length;
       const noShow = appointments.filter((a) => a.status === "no-show").length;
 
       const completionRate =
@@ -183,14 +205,14 @@ export default function Reports() {
       });
 
       // Calculate prescription statistics
-      const singleVision = patients.filter(
-        (p) => p.lensType?.toLowerCase().includes("single")
+      const singleVision = patients.filter((p) =>
+        p.lensType?.toLowerCase().includes("single"),
       ).length;
-      const bifocal = patients.filter(
-        (p) => p.lensType?.toLowerCase().includes("bifocal")
+      const bifocal = patients.filter((p) =>
+        p.lensType?.toLowerCase().includes("bifocal"),
       ).length;
-      const progressive = patients.filter(
-        (p) => p.lensType?.toLowerCase().includes("progressive")
+      const progressive = patients.filter((p) =>
+        p.lensType?.toLowerCase().includes("progressive"),
       ).length;
 
       // Find most common frame and lens types
@@ -206,12 +228,12 @@ export default function Reports() {
         }
       });
 
-      const mostCommonFrame = Object.entries(frameTypes).sort(
-        ([, a], [, b]) => b - a,
-      )[0]?.[0] || "N/A";
-      const mostCommonLens = Object.entries(lensTypes).sort(
-        ([, a], [, b]) => b - a,
-      )[0]?.[0] || "N/A";
+      const mostCommonFrame =
+        Object.entries(frameTypes).sort(([, a], [, b]) => b - a)[0]?.[0] ||
+        "N/A";
+      const mostCommonLens =
+        Object.entries(lensTypes).sort(([, a], [, b]) => b - a)[0]?.[0] ||
+        "N/A";
 
       setPrescriptionStats({
         totalPrescriptions: patients.length,
@@ -253,7 +275,9 @@ export default function Reports() {
     <div className="bg-card border border-border rounded-lg p-6">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm font-medium text-muted-foreground mb-1">{label}</p>
+          <p className="text-sm font-medium text-muted-foreground mb-1">
+            {label}
+          </p>
           <p className="text-2xl font-bold text-foreground">{value}</p>
           {change && <p className="text-xs text-green-600 mt-2">{change}</p>}
         </div>
@@ -744,19 +768,25 @@ export default function Reports() {
                   <p className="text-3xl font-bold text-green-600">
                     {appointmentStats?.completedAppointments || 0}
                   </p>
-                  <p className="text-sm text-muted-foreground mt-1">Completed</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Completed
+                  </p>
                 </div>
                 <div className="text-center">
                   <p className="text-3xl font-bold text-blue-600">
                     {appointmentStats?.scheduledAppointments || 0}
                   </p>
-                  <p className="text-sm text-muted-foreground mt-1">Scheduled</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Scheduled
+                  </p>
                 </div>
                 <div className="text-center">
                   <p className="text-3xl font-bold text-red-600">
                     {appointmentStats?.cancelledAppointments || 0}
                   </p>
-                  <p className="text-sm text-muted-foreground mt-1">Cancelled</p>
+                  <p className="text-sm text-muted-foreground mt-1">
+                    Cancelled
+                  </p>
                 </div>
                 <div className="text-center">
                   <p className="text-3xl font-bold text-yellow-600">

@@ -1,6 +1,16 @@
 import { Layout } from "@/components/Layout";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Plus, X, Edit2, Trash2, Calendar, Clock, User, AlertCircle } from "lucide-react";
+import {
+  ArrowLeft,
+  Plus,
+  X,
+  Edit2,
+  Trash2,
+  Calendar,
+  Clock,
+  User,
+  AlertCircle,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import {
   getAppointments,
@@ -69,7 +79,9 @@ export default function Appointments() {
   };
 
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -98,7 +110,11 @@ export default function Appointments() {
     setError(null);
     setSuccessMessage(null);
 
-    if (!formData.patientId || !formData.appointmentDate || !formData.appointmentTime) {
+    if (
+      !formData.patientId ||
+      !formData.appointmentDate ||
+      !formData.appointmentTime
+    ) {
       setError("Please fill in all required fields");
       return;
     }
@@ -115,7 +131,8 @@ export default function Appointments() {
       resetForm();
       await loadData(true);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Failed to save appointment";
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to save appointment";
       setError(errorMessage);
     }
   };
@@ -133,7 +150,8 @@ export default function Appointments() {
         setSuccessMessage("Appointment cancelled successfully!");
         await loadData();
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : "Failed to cancel appointment";
+        const errorMessage =
+          err instanceof Error ? err.message : "Failed to cancel appointment";
         setError(errorMessage);
       }
     }
@@ -146,7 +164,8 @@ export default function Appointments() {
         setSuccessMessage("Appointment deleted successfully!");
         await loadData();
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : "Failed to delete appointment";
+        const errorMessage =
+          err instanceof Error ? err.message : "Failed to delete appointment";
         setError(errorMessage);
       }
     }
@@ -225,8 +244,12 @@ export default function Appointments() {
 
         {/* Page Title */}
         <div>
-          <h1 className="text-3xl font-bold text-foreground mb-2">Appointments</h1>
-          <p className="text-muted-foreground">Track and manage all patient appointments</p>
+          <h1 className="text-3xl font-bold text-foreground mb-2">
+            Appointments
+          </h1>
+          <p className="text-muted-foreground">
+            Track and manage all patient appointments
+          </p>
         </div>
 
         {/* Error Messages */}
@@ -451,7 +474,9 @@ export default function Appointments() {
             ) : filteredAppointments.length === 0 ? (
               <div className="bg-card border border-border rounded-xl p-8 text-center py-16">
                 <Calendar className="w-12 h-12 text-secondary/50 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">No Appointments</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  No Appointments
+                </h3>
                 <p className="text-muted-foreground mb-6">
                   {searchTerm || filterStatus !== "all"
                     ? "No appointments match your search criteria"
@@ -487,7 +512,9 @@ export default function Appointments() {
                             {appointment.reasonForVisit}
                           </p>
                         </div>
-                        <div className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(appointment.status)}`}>
+                        <div
+                          className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(appointment.status)}`}
+                        >
                           {getStatusLabel(appointment.status)}
                         </div>
                       </div>
@@ -496,11 +523,14 @@ export default function Appointments() {
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                         <div className="flex items-center gap-2 text-muted-foreground">
                           <Calendar size={16} />
-                          {new Date(appointment.appointmentDate).toLocaleDateString()}
+                          {new Date(
+                            appointment.appointmentDate,
+                          ).toLocaleDateString()}
                         </div>
                         <div className="flex items-center gap-2 text-muted-foreground">
                           <Clock size={16} />
-                          {appointment.appointmentTime} ({appointment.duration} min)
+                          {appointment.appointmentTime} ({appointment.duration}{" "}
+                          min)
                         </div>
                         <div className="text-muted-foreground">
                           {appointment.patientEmail}
