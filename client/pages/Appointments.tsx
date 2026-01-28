@@ -46,17 +46,33 @@ export default function Appointments() {
     setIsLoading(true);
     setError(null);
 
-    try {
-      const appointmentsData = await getAppointments();
-      const patientsData = await getAllPatients();
-
-      setAppointments(appointmentsData);
-      setPatients(patientsData);
-    } catch (err) {
-      console.error("Error loading data:", err);
+    // Create a timeout that fires after 5 seconds
+    const timeoutId = setTimeout(() => {
+      console.warn("Load timeout - setting empty state");
       setAppointments([]);
       setPatients([]);
-    } finally {
+      setIsLoading(false);
+    }, 5000);
+
+    try {
+      console.log("Starting to load appointments and patients...");
+      const [appointmentsData, patientsData] = await Promise.all([
+        getAppointments(),
+        getAllPatients(),
+      ]);
+
+      console.log("Loaded appointments:", appointmentsData.length);
+      console.log("Loaded patients:", patientsData.length);
+
+      clearTimeout(timeoutId);
+      setAppointments(appointmentsData);
+      setPatients(patientsData);
+      setIsLoading(false);
+    } catch (err) {
+      console.error("Error loading data:", err);
+      clearTimeout(timeoutId);
+      setAppointments([]);
+      setPatients([]);
       setIsLoading(false);
     }
   };
