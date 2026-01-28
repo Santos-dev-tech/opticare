@@ -61,10 +61,22 @@ export default function Reports() {
       setIsLoading(true);
       setError(null);
 
-      const [patients, appointments] = await Promise.all([
-        getAllPatients(),
-        getAppointments(),
-      ]);
+      let patients: PatientData[] = [];
+      let appointments: AppointmentData[] = [];
+
+      try {
+        patients = await getAllPatients();
+      } catch (err) {
+        console.error("Error loading patients:", err);
+        patients = [];
+      }
+
+      try {
+        appointments = await getAppointments();
+      } catch (err) {
+        console.error("Error loading appointments:", err);
+        appointments = [];
+      }
 
       // Calculate patient statistics
       const now = new Date();
