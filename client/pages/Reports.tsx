@@ -222,9 +222,11 @@ export default function Reports() {
         mostCommonLensType: mostCommonLens,
       });
 
+      clearTimeout(timeoutId);
       setIsLoading(false);
     } catch (err) {
       console.error("Error loading report data:", err);
+      clearTimeout(timeoutId);
       setError("Failed to load report data");
       setIsLoading(false);
     }
