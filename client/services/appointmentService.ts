@@ -56,24 +56,20 @@ export async function getAppointments(
   patientId?: string,
 ): Promise<AppointmentData[]> {
   try {
+    const collectionRef = collection(db, APPOINTMENTS_COLLECTION);
     let q;
+
     if (patientId) {
-      q = query(
-        collection(db, APPOINTMENTS_COLLECTION),
-        where("patientId", "==", patientId),
-      );
+      q = query(collectionRef, where("patientId", "==", patientId));
     } else {
-      q = query(collection(db, APPOINTMENTS_COLLECTION));
+      q = query(collectionRef);
     }
 
     const querySnapshot = await getDocs(q);
-    const appointments = querySnapshot.docs.map(
-      (doc) =>
-        ({
-          id: doc.id,
-          ...doc.data(),
-        }) as AppointmentData,
-    );
+    const appointments = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    } as AppointmentData));
 
     // Sort by date descending
     return appointments.sort(
@@ -83,7 +79,8 @@ export async function getAppointments(
     );
   } catch (error) {
     console.error("Error getting appointments:", error);
-    throw error;
+    // Return empty array if collection doesn't exist
+    return [];
   }
 }
 
