@@ -121,16 +121,20 @@ export async function getAppointmentsByDate(date: string): Promise<AppointmentDa
     const q = query(
       collection(db, APPOINTMENTS_COLLECTION),
       where("appointmentDate", "==", date),
-      orderBy("appointmentTime", "asc"),
     );
 
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(
+    const appointments = querySnapshot.docs.map(
       (doc) =>
         ({
           id: doc.id,
           ...doc.data(),
         }) as AppointmentData,
+    );
+
+    // Sort by time ascending
+    return appointments.sort(
+      (a, b) => a.appointmentTime.localeCompare(b.appointmentTime),
     );
   } catch (error) {
     console.error("Error getting appointments by date:", error);
