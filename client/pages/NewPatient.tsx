@@ -42,6 +42,10 @@ interface PatientFormData {
 
   // Notes
   notes: string;
+
+  // Eyewear Details
+  frameType: string;
+  lensType: string;
 }
 
 export default function NewPatient() {
